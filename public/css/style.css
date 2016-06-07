@@ -1,0 +1,558 @@
+@font-face { font-family: 'Plantagenet Cherokee'; src: url('Plantagenet_Cherokee.ttf');}
+
+* {
+    box-sizing: border-box;
+    
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-image:url(../images/BackgroundImage.jpg);
+    font-family: 'Plantagenet Cherokee';
+}
+
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 960px;
+  padding: 15px;
+  margin: 50px auto;
+  background: white;
+}
+
+
+/*------------------------ Header Styling ------------------------*/
+
+header  {
+    display: flex;
+    height: 100px;
+    width: 100%;
+    border-bottom: 1px solid black;
+}
+
+.box {
+    height: 100px;
+    width: 100%;
+    position: relative;
+}
+
+nav {
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    border-top: 1px solid black;
+}
+
+nav a {
+    display: inline-block;
+    width: 50%;
+    float: left;
+    text-align: center;
+    font-size: 24px;
+    color: black;
+    text-decoration: none; 
+}
+
+nav a:hover {
+    color: black;
+}
+
+.middle  {
+    width: 100%;
+    text-align: center;
+}
+
+/*------------------------ Home Page Styling ------------------------*/
+
+#main {
+    width: 100%;
+    height: 480px;
+    margin-top: 5px;
+}
+
+#img {
+    background: url(../images/MainPic.jpg) no-repeat center center;
+    width: 100%;
+    height: 480px;
+    border: 3px solid black;
+}
+
+.logo {
+    display: flex;
+    height: 80px;
+    width: 100%;
+}
+
+.midbox {
+    display: flex;
+    width: 100%;
+}
+
+.midbox p {
+    margin: auto;
+    font-size: 32px;
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    border-top: 1px solid black;
+    margin-top: 40px;
+}
+
+.lower {
+    display: flex;
+    height: 288px;
+    width: 100%;
+}
+
+.lower pic {
+    display: flex;
+    height: 288px;
+    width: 288px;
+}
+
+.border {
+    display: flex;
+    height: 270px;
+    width: 270px;
+    margin: auto;
+    border: 2px solid black;
+}
+
+.reed {
+    background-image: url(../images/ReedPic.jpg);
+    display: flex;
+    height: 288px;
+    width: 288px;
+    border: 3px solid black;
+}
+
+.tin {
+    background-image: url(../images/CandleBottom.jpg);
+    display: flex;
+    height: 288px;
+    width: 288px;
+    margin: 0 auto;
+    border: 3px solid black;
+}
+
+.glass {
+    background-image: url(../images/crop-glass-lav.jpg);
+    display: flex;
+    height: 288px;
+    width: 288px;
+    border: 3px solid black;
+}
+
+.textbox {
+    background-color: #000000;
+    display: flex;
+    opacity: 0.75;
+    height: 72px;
+    width: 288px;
+    margin: 35% -9px -9px;
+}
+
+.textbox a {
+    font-size: 36px;
+    font-weight: 400;
+    text-align: center;
+    color: #fbf2f2;
+    margin: auto;
+    text-decoration: none;
+}
+
+.textbox a:hover {
+    text-decoration: underline;
+}
+
+/*------------------------ Product Page Styling ------------------------*/
+
+.category {
+    display: flex;
+    width: 100%;
+    height: 100px;
+    margin: 5px auto;
+}
+
+.category h2 {
+    text-align: center;
+    margin: auto;
+    font-size: 24px;
+    color: black;
+}
+
+.products {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.item {
+    margin: auto;
+}
+
+.item img{
+    height: 288px;
+    width: 288px;
+    border: 2px solid black;
+    margin: 5px auto;
+}
+
+.main {
+    display: flex;
+    box-shadow: 0 3px 8px 2px rgba(0,0,0, 0.3);
+    width: 100%;
+    height: 450px;
+    margin-bottom: 5px;
+}
+
+.mainImg {
+    height: 100%;
+    width: 50%;
+    margin: auto;
+}
+
+.info {
+    display: flex;
+    height: 100%;
+    width: 50%;
+    margin: auto;
+}
+
+.details {
+    display: flex;
+    height: 300px;
+    width: 300px;
+    margin: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#tinDetails {
+    display: flex;
+    text-align: center;
+    width: 90%;
+    height: 70%;
+    align-content: center;
+    flex-wrap: wrap;
+    margin-bottom: -15px;
+}
+
+#tinTitle {
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+#glassDetails {
+    display: flex;
+    text-align: center;
+    width: 90%;
+    height: 70%;
+    align-content: center;
+    flex-wrap: wrap;
+    margin-bottom: -15px;
+}
+
+#glassTitle {
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+#reedDetails {
+    display: flex;
+    text-align: center;
+    width: 90%;
+    height: 70%;
+    align-content: center;
+    flex-wrap: wrap;
+    margin-bottom: -15px;
+}
+
+#reedTitle {
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+#listImg {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    border-top: none;
+}
+
+#listImg img {
+    margin: auto;
+    height: 250px;
+    width: 250px;
+}
+
+.thumbnail {
+    height: 580px;
+    width: 305px;
+}
+
+.caption {
+    width: 250px;
+    margin: auto;
+}
+
+.caption h3, h4 {
+    
+    text-align: center;
+}
+
+.caption p {
+    height: 170px;
+}
+
+.buyInfo {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    margin-bottom: 10px;
+    height: 50px;
+}
+
+.buyInfo form {
+    display: flex;
+    justify-content: space-between;
+    width: 100%
+}
+
+.buyInfo form a {
+    color: black;
+}
+
+
+/*------------------------ About Page Styling ------------------------*/
+
+#description {
+    width: 80%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+#description p {
+    font-size: 20px;
+    margin: auto;
+}
+
+#sign {
+    float: right;
+}
+
+#logo {
+    display: flex;
+    height: 80px;
+    width: 100%;
+}
+
+#business {
+  display: flex;
+}
+
+.contact {
+  width: 50%;
+}
+
+.contact * {
+  display: flex;
+  justify-content: center;
+  font-weight: 400;
+  text-align: center;
+}
+
+iframe {
+  margin: auto;
+  height: 200px;
+  width: 400px;
+  border: 1px solid black;
+}
+
+.icon {
+  height: 40px;
+  width: 40px;
+}
+
+/*------------------------ Shopping Cart Page Styling ------------------------*/
+
+.cart_quantity_button form {
+  display: flex;
+  justify-content: space-around;
+  width: 50px;
+  margin: auto;
+  float: left;
+}
+
+.cart_description h4 {
+  margin-top: 2px;
+}
+
+.cart_update {
+  float: right;
+}
+
+.total_area {
+  float: right;
+}
+
+.cart_product img {
+  height: 75px;
+  width: 75px;
+  margin: auto;
+}
+
+/*------------------------ Checkout Page Styling ------------------------*/
+
+form input {
+  width: 100%;
+  max-width:320px;
+  border: 2px solid gray;
+  background: none;
+  position: relative;
+  margin: 5px auto;
+  z-index: 1;
+  padding: 8px 12px;
+  outline: 0;
+}
+
+img {
+    max-width: 100%;
+}
+
+#wrap {
+    width:100%;
+    margin:20px auto;
+}
+
+.column {
+    width:47%;
+    border-radius:10px;
+    box-shadow: 0 3px 8px 2px rgba(0,0,0, 0.3);
+}
+
+.column1 {
+    float: left;
+    margin-left: 1%;
+}
+
+.column3 {
+    float:right;
+    margin-right: 1%;
+}
+
+.title{
+    float:left;
+    width:70%;
+    margin-left:3%;
+    font-weight:300;
+    margin-top:-5px;
+}
+
+.content{
+    padding:2em 2em;
+    width:100%;
+    margin:0 auto;
+    height:auto;
+    display:block;
+    float:left;
+}
+
+.content button{
+    display:block;
+    float:none;
+    margin:5px auto;
+    background:#ffc04d;
+    width:200px;
+    border:0;
+    padding:5px 15px;
+    font-size:1.6em;
+    border-bottom:3px solid #4da7ff;
+    border-radius:2px;
+    clear:both;
+}
+
+.form-container {
+    margin: 5px auto;
+}
+
+.state_options select {
+    background: transparent;
+    display:inline-block;
+    width:100%;
+    padding: 5px;
+    font-size: 2em;
+    line-height: 1;
+    border: 0;
+    border-radius:0;
+    height: 40px;
+}
+
+#address .state_options label {
+    right: 0;
+    margin-right: 0;
+    width: 40%;
+    top:5px;
+    bottom:3px;
+    background:#ffc04d;
+    color: white;
+    font-size: 1em;
+    padding: 4px 6px;
+    z-index: 2;
+    text-transform: uppercase;
+}
+
+.products{
+  width:100%;
+  float:left;
+  padding-bottom:3px;
+  border-bottom:1px solid black;
+}
+.products .product_image{
+  width:20%;
+  float:left;
+  margin-right: 2px;
+}
+.products .product_details{
+  width:70%;
+  display: table;
+  vertical-align: middle;
+}
+.products .product_details span{
+  display:table-cell;
+  vertical-align: middle;
+  margin-top:30%;
+  font-size: 1.5em; 
+}
+
+.final{
+  width:100%;
+  float:left;
+  font-size:2.2em;
+  text-align: right;
+}
+.final .title{
+  width:95%;
+  margin-right:5%;
+  font-weight:bold;
+  margin-top:5px;
+}
+
+.cart {
+  float: right;
+}
+
+form {
+  height: 100%;
+  width: 100%;
+}
