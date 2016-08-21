@@ -61,7 +61,18 @@
 <section>
     <div class="total_area">
     	<a class="btn btn-default check_out" href="{{url('products')}}">Continue Shopping</a>
-        <a class="btn btn-default check_out" href="{{url('checkout')}}">Check Out</a>
+        <form action="/checkout" method="POST">
+            <script
+            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key="pk_test_G7mvuXzKRqtlzpBvondHUt2m"
+            data-amount="{{$total * 100}}"
+            data-name="Esscents Naturals"
+            data-description="Checkout powered by Stripe"
+            data-shipping-address="true"
+            data-zip-code="true"
+            data-locale="auto">
+            </script>
+        </form>
     </div>   
 </section>
 

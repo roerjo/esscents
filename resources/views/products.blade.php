@@ -52,8 +52,9 @@
                                 Add to cart
                             </button>
                         </div>
-                        <a href="{{url('cart')}}"><button class="btn btn-fefault">Go to Cart</button></a>
+                        
                     </form>
+                    <a href="{{url('cart')}}"><button class="btn btn-fefault">Go to Cart</button></a>
                 </div>
             </div>
         </div>
@@ -102,8 +103,9 @@
                             Add to cart
                         </button>
                         <br />
-                        <a href="{{url('cart')}}"><button class="btn btn-fefault">Go to Cart</button></a>
+                        
                     </form>
+                    <a href="{{url('cart')}}"><button class="btn btn-fefault">Go to Cart</button></a>
                 </div>
             </div>
         </div>
@@ -152,8 +154,9 @@
                             Add to cart
                         </button>
                         <br />
-                        <a href="{{url('cart')}}"><button class="btn btn-fefault">Go to Cart</button></a>
+                        
                     </form>
+                    <a href="{{url('cart')}}"><button class="btn btn-fefault">Go to Cart</button></a>
                 </div>
             </div>
         </div>

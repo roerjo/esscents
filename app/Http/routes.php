@@ -25,13 +25,13 @@ Route::get('/success', function () {
 
 Route::get('/products', 'MainController@index');
 
+Route::post('/send', 'EmailController@send');
+
 Route::get('/cart', 'CartController@index');
 Route::post('/cart/{id}', 'CartController@addToCart');
 Route::put('/cart/{id}', 'CartController@updateQuantity');
 Route::delete('/cart/{id}', 'CartController@destroy');
-
-Route::get('/checkout', 'CheckoutController@index');
-Route::post('/checkout', 'CheckoutController@charge');
+Route::post('/checkout', 'CartController@charge');
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('/admin/product/new', 'ProductController@newProduct');
