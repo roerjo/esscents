@@ -1,19 +1,6 @@
 <html>
 <head>
 	{{ csrf_field() }}
-
-	<style>
-
-		body (
-				background: white;
-				color: black;
-			)
-
-		ul (
-				list-style: none;
-			)
-
-	</style>
 </head>
 <body>
 
