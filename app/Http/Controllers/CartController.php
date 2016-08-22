@@ -26,7 +26,13 @@ class CartController extends Controller
     
 		$product = Product::find($id);
 		
-		Cart::add(array('id' => $product->id, 'name' => $product->name, 'qty' => 1, 'price' => $product->price, 'options' =>['picture' => $product->picture_url]));
+		Cart::add(array(
+            'id' => $product->id,
+            'type' => $product->type,
+            'name' => $product->name,
+            'qty' => 1,
+            'price' => $product->price,
+            'options' =>['picture' => $product->picture_url]));
 
 		return back();
     }
