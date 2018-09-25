@@ -11,6 +11,8 @@
 |
 */
 
+Route::get('/log', 'LogController@log');
+
 Route::get('/', function () {
     return view('home');
 });
