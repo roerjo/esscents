@@ -25,7 +25,7 @@ Route::get('/success', function () {
 	return view('success');
 });
 
-Route::get('/products', 'MainController@index');
+Route::get('/products', 'ProductController@index');
 
 Route::post('/send', 'EmailController@send');
 

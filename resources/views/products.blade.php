@@ -1,11 +1,11 @@
 @extends('layouts.master')
- 
+
 @section('Esscents Naturals | Products', 'Page Title')
- 
+
 @section('sidebar')
     @parent
 @endsection
- 
+
 @section('content')
     <!--Tin Product Area-->
     <section class="category">
@@ -29,13 +29,13 @@
                     </div>
                     <article id="tindescript">
                         These candles are handmade and placed in a cozy tin that looks great sitting anywhere in the house. Essential oils are the key ingredient that makes these candles special and smell amazing.
-                    </article>  
+                    </article>
                 </div>
             </div>
         </div>
     </section>
     <div id="listImg">
-    @foreach ($products['tinCandles'] as $product)
+    @foreach ($products['tin'] as $product)
         <div class="thumbnail">
             <img src="{{$product->picture_url}}">
             <div class="caption">
@@ -52,7 +52,7 @@
                                 Add to cart
                             </button>
                         </div>
-                        
+
                     </form>
                     <a href="{{url('cart')}}"><button class="btn btn-fefault">Go to Cart</button></a>
                 </div>
@@ -81,13 +81,13 @@
                     </div>
                     <article id="glassdescript">
                         These candles are handmade and placed in an elagent glass fixture that looks great sitting anywhere in the house. Essential oils are the key ingredient that makes these candles special and smell amazing.
-                    </article>  
+                    </article>
                 </div>
             </div>
         </div>
     </section>
     <div id="listImg">
-    @foreach ($products['glassCandles'] as $product)
+    @foreach ($products['glass'] as $product)
         <div class="thumbnail">
             <img src="{{$product->picture_url}}">
             <div class="caption">
@@ -103,7 +103,7 @@
                             Add to cart
                         </button>
                         <br />
-                        
+
                     </form>
                     <a href="{{url('cart')}}"><button class="btn btn-fefault">Go to Cart</button></a>
                 </div>
@@ -132,13 +132,13 @@
                     </div>
                     <article id="reeddescript">
                         These reed diffusers are handmade and last 30 days while looking great sitting anywhere in the house. Essential oils are the key ingredient that makes these reed diffusers special and smell amazing.
-                    </article>  
+                    </article>
                 </div>
             </div>
         </div>
     </section>
     <div id="listImg">
-    @foreach ($products['reedDiffusers'] as $product)
+    @foreach ($products['reed'] as $product)
         <div class="thumbnail">
             <img src="{{$product->picture_url}}">
             <div class="caption">
@@ -154,7 +154,7 @@
                             Add to cart
                         </button>
                         <br />
-                        
+
                     </form>
                     <a href="{{url('cart')}}"><button class="btn btn-fefault">Go to Cart</button></a>
                 </div>
