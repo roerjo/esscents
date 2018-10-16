@@ -20,10 +20,10 @@ class CartController extends Controller
      */
     public function index()
     {
-    	$cart = Cart::content();
+        $cart = Cart::content();
         $total = Cart::total();
 
-    	return view('cart', compact('cart', 'total'));
+        return view('cart', compact('cart', 'total'));
     }
 
     /**
@@ -36,7 +36,7 @@ class CartController extends Controller
     {
         $product = Product::find($id);
 
-		Cart::add(
+        Cart::add(
             $product->id,
             $product->name,
             1,
@@ -47,7 +47,7 @@ class CartController extends Controller
             ]
         );
 
-		return back();
+        return back();
     }
 
     /**
@@ -59,15 +59,15 @@ class CartController extends Controller
      */
     public function updateQuantity(Request $request, int $id)
     {
-		$product = Product::find($id);
+        $product = Product::find($id);
 
-		$rowId = Cart::search(['id' => $product->id]);
+        $rowId = Cart::search(['id' => $product->id]);
 
         $item = Cart::get($rowId[0]);
 
         Cart::update($rowId[0], $item->qty = $request->quantity);
 
-    	return redirect('cart');
+        return redirect('cart');
     }
 
     /**
@@ -78,13 +78,13 @@ class CartController extends Controller
      */
     public function destroy(int $id)
     {
-    	$product = Product::find($id);
+        $product = Product::find($id);
 
-		$rowId = Cart::search(['id' => $product->id]);
+        $rowId = Cart::search(['id' => $product->id]);
 
-		Cart::remove($rowId[0]);
+        Cart::remove($rowId[0]);
 
-		return redirect('cart');
+        return redirect('cart');
     }
 
     /**

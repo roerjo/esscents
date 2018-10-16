@@ -81,9 +81,9 @@ class ProductController extends Controller
      */
     public function show(int $id)
     {
-    	$product = Product::find($id);
+        $product = Product::find($id);
 
-    	return view('admin.update', compact('product'));
+        return view('admin.update', compact('product'));
     }
 
     /**
@@ -95,15 +95,15 @@ class ProductController extends Controller
      */
     public function update(Request $request, int $id)
     {
-    	$product = Product::find($id);
+        $product = Product::find($id);
 
-    	if ($request->picture_url) {
-    		if(file_exists($product->picture_url)) {
+        if ($request->picture_url) {
+            if(file_exists($product->picture_url)) {
                 unlink($product->picture_url);
             }
             $imagePath = "images/{$request->type}/{$request->name}.jpg";
-    		$product->picture_url = $imagePath;
-        	$request->file('picture_url')->move(
+            $product->picture_url = $imagePath;
+            $request->file('picture_url')->move(
                 base_path()."/public/images/{$imagePath}"
             );
         } elseif ($request->name != $product->name ||
@@ -115,13 +115,13 @@ class ProductController extends Controller
             $product->picture_url = $imagePath;
         }
 
-    	$product->type = $request->get('type');
+        $product->type = $request->get('type');
         $product->name = $request->get('name');
         $product->description = $request->get('description');
         $product->price = $request->get('price');
 
         $product->save();
 
-    	return redirect('/admin/products');
+        return redirect('/admin/products');
     }
 }
