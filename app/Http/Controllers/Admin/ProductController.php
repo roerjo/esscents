@@ -1,79 +1,119 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use Log;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-
 class ProductController extends Controller
 {
-    public function index(){
+    /**
+     * Return all products
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index()
+    {
         $products = Product::all();
-        return view('admin.products',['products' => $products]);
+
+        return view('admin.products',compact('products'));
     }
- 
-    public function destroy($id){
+
+    /**
+     * Remove a product from the database
+     *
+     * @param int $id
+     * @return \Illuminate\View\View
+     */
+    public function destroy(int $id)
+    {
         $product = Product::find($id);
-        if(unlink($product->picture_url)) {
-            echo 'Picture deleted';
-        } else {
-            echo 'No picture found';
-        }
+
+        // remove the product image
+        unlink($product->picture_url);
+
         $product->destroy($id);
 
         return redirect('/admin/products');
     }
- 
-    public function newProduct(){
+
+    /**
+     * Add new product page
+     *
+     * @return \Illuminate\View\View
+     */
+    public function newProduct()
+    {
         return view('admin.new');
     }
- 
-    public function add(Request $request) {
- 
+
+    /**
+     * Create a new product
+     *
+     * @param Request $request
+     * @return \Illuminate\View\View
+     */
+    public function add(Request $request)
+    {
         $product = new Product();
         $product->type = $request->get('type');
         $product->name = $request->get('name');
         $product->description = $request->get('description');
         $product->price = $request->get('price');
-        
-        $product->picture_url = "images/" . implode(" ", $request->only('type')) . "/" . implode(" ", $request->only('name')) . ".jpg";
-        $request->file('picture_url')->move( base_path()."/public/images/" . implode(" ", $request->only('type')), implode(" ", $request->only('name')) . ".jpg");
- 
+
+        $imagePath = "images/{$request->type}/{$request->name}.jpg";
+        $product->picture_url = $imagePath;
+        $request->file('picture_url')->move(
+            base_path()."/public/images/{$imagePath}"
+        );
+
         $product->save();
- 
+
         return redirect('/admin/products');
- 
     }
 
-    public function edit($id) {
+    /**
+     * Show a product's details
+     *
+     * @param int $id
+     * @return \Illuminate\View\View
+     */
+    public function show(int $id)
+    {
     	$product = Product::find($id);
-   
-    	return view('admin.update', ['product' => $product]);
+
+    	return view('admin.update', compact('product'));
     }
 
-    public function update(Request $request, $id) {
-    	
-    	
+    /**
+     * Update a product
+     *
+     * @param Request $request
+     * @param int $id
+     * @return \Illuminate\View\View
+     */
+    public function update(Request $request, int $id)
+    {
     	$product = Product::find($id);
-    
-    	if($request->picture_url) {
+
+    	if ($request->picture_url) {
     		if(file_exists($product->picture_url)) {
                 unlink($product->picture_url);
             }
-    		$product->picture_url = "images/" . implode(" ", $request->only('type')) . "/" . implode(" ", $request->only('name')) . ".jpg";
-        	$request->file('picture_url')->move( base_path()."/public/images/" . implode(" ", $request->only('type')), implode(" ", $request->only('name')) . ".jpg");
-    	}
-
-    	if(!$request->picture_url) {
-            if($request->name != $product->name || $request->type != $product->type) {
-        		copy($product->picture_url, "images/" . implode(" ", $request->only('type')) . "/" . implode(" ", $request->only('name')) . ".jpg");
-        		unlink($product->picture_url);
-        		$product->picture_url = "images/" . implode(" ", $request->only('type')) . "/" . implode(" ", $request->only('name')) . ".jpg";
-            }
-    	}
+            $imagePath = "images/{$request->type}/{$request->name}.jpg";
+    		$product->picture_url = $imagePath;
+        	$request->file('picture_url')->move(
+                base_path()."/public/images/{$imagePath}"
+            );
+        } elseif ($request->name != $product->name ||
+                  $request->type != $product->type
+        ) {
+            $imagePath = "images/{$request->type}/{$request->name}.jpg";
+            copy($product->picture_url, $imagePath);
+            unlink($product->picture_url);
+            $product->picture_url = $imagePath;
+        }
 
     	$product->type = $request->get('type');
         $product->name = $request->get('name');

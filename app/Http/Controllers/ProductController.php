@@ -7,6 +7,11 @@ use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
+    /**
+     * Return all available products
+     *
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
 		$products = Product::all()->groupBy('type');

@@ -16,7 +16,7 @@ class CartController extends Controller
     /**
      * Retrieve cart contents
      *
-     * @return view
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -30,7 +30,7 @@ class CartController extends Controller
      * Add an item to the cart
      *
      * @param int $id
-     * @return view
+     * @return \Illuminate\View\View
      */
     public function addToCart(int $id)
     {
@@ -55,7 +55,7 @@ class CartController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return view
+     * @return \Illuminate\View\View
      */
     public function updateQuantity(Request $request, int $id)
     {
@@ -74,7 +74,7 @@ class CartController extends Controller
      * Remove an item from the cart
      *
      * @param int $id
-     * @return view
+     * @return \Illuminate\View\View
      */
     public function destroy(int $id)
     {
@@ -91,7 +91,7 @@ class CartController extends Controller
      * Charge the customer
      *
      * @param Request $request
-     * @return view
+     * @return \Illuminate\View\View
      */
     public function charge(Request $request)
     {

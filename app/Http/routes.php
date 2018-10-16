@@ -31,15 +31,16 @@ Route::put('/cart/{id}', 'CartController@updateQuantity');
 Route::delete('/cart/{id}', 'CartController@destroy');
 Route::post('/checkout', 'CartController@charge');
 
-Route::group(['middleware' => 'auth'], function () {
-	Route::get('/admin/product/new', 'ProductController@newProduct');
-	Route::get('/admin/products', 'ProductController@index');
-	Route::get('/admin/product/destroy/{id}', 'ProductController@destroy');
-	Route::post('/admin/product/save', 'ProductController@add');
-	Route::get('/admin/product/edit/{id}', 'ProductController@edit');
-	Route::put('/admin/product/update/{id}', 'ProductController@update');
-});
 
-Route::get('/admin/login', 'Auth\AuthController@getLogin');
-Route::post('/admin/login', 'Auth\AuthController@postLogin');
-Route::get('/admin/logout', 'Auth\AuthController@getLogout');
+Route::get('/admin/login', 'Admin\AuthController@getLogin');
+Route::post('/admin/login', 'Admin\AuthController@postLogin');
+Route::get('/admin/logout', 'Admin\AuthController@getLogout');
+
+Route::group(['middleware' => 'auth'], function () {
+	Route::get('/admin/product/new', 'Admin\ProductController@newProduct');
+	Route::get('/admin/products', 'Admin\ProductController@index');
+	Route::get('/admin/product/destroy/{id}', 'Admin\ProductController@destroy');
+	Route::post('/admin/product/save', 'Admin\ProductController@add');
+	Route::get('/admin/product/edit/{id}', 'Admin\ProductController@show');
+	Route::put('/admin/product/update/{id}', 'Admin\ProductController@update');
+});
