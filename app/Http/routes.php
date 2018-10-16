@@ -11,8 +11,6 @@
 |
 */
 
-Route::get('/log', 'LogController@log');
-
 Route::get('/', function () {
     return view('home');
 });
@@ -26,8 +24,6 @@ Route::get('/success', function () {
 });
 
 Route::get('/products', 'ProductController@index');
-
-Route::post('/send', 'EmailController@send');
 
 Route::get('/cart', 'CartController@index');
 Route::post('/cart/{id}', 'CartController@addToCart');

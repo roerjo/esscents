@@ -35,10 +35,10 @@
 							{{ method_field('PUT') }}
 							{{ csrf_field() }}
                         	<input class="cart_quantity_input" type="text" name="quantity" value="{{$item->qty}}" autocomplete="off" size="2">
-                    </div>  	
+                    </div>
                         	<button type="submit" name="update_qty">Update Total</button>
                         </form>
-                    
+
                 </td>
                 <td class="cart_total">
                     <p class="cart_total_price">${{$item->subtotal}}</p>
@@ -73,7 +73,7 @@
             data-locale="auto">
             </script>
         </form>
-    </div>   
+    </div>
 </section>
 
 @stop

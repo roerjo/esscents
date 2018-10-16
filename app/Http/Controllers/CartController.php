@@ -2,118 +2,140 @@
 
 namespace App\Http\Controllers;
 
-use Log;
-use DB;
 use Cart;
 use Mail;
-use Config;
 use App\Product;
+use Stripe\Stripe;
+use Stripe\Charge;
+use Stripe\Error\Card;
 use Illuminate\Http\Request;
-use Config\Services;
 use App\Http\Controllers\Controller;
 
 class CartController extends Controller
 {
-    public function index() {
-
+    /**
+     * Retrieve cart contents
+     *
+     * @return view
+     */
+    public function index()
+    {
     	$cart = Cart::content();
         $total = Cart::total();
-    
-    	return view('cart',['cart' => $cart, 'total' => $total]);
+
+    	return view('cart', compact('cart', 'total'));
     }
 
-    public function addToCart($id) {
-    
-		$product = Product::find($id);
-		
-		Cart::add(array(
-            'id' => $product->id,
-            'type' => $product->type,
-            'name' => $product->name,
-            'qty' => 1,
-            'price' => $product->price,
-            'options' =>['picture' => $product->picture_url]));
+    /**
+     * Add an item to the cart
+     *
+     * @param int $id
+     * @return view
+     */
+    public function addToCart(int $id)
+    {
+        $product = Product::find($id);
+
+		Cart::add(
+            $product->id,
+            $product->name,
+            1,
+            $product->price,
+            [
+                'type'    => $product->type,
+                'picture' => $product->picture_url,
+            ]
+        );
 
 		return back();
     }
 
-    public function updateQuantity(Request $request, $id) {
-	
+    /**
+     * Adjust the quantity of an item in the cart
+     *
+     * @param Request $request
+     * @param int $id
+     * @return view
+     */
+    public function updateQuantity(Request $request, int $id)
+    {
 		$product = Product::find($id);
 
-		$rowId = Cart::search(array('id' => $product->id));
+		$rowId = Cart::search(['id' => $product->id]);
 
         $item = Cart::get($rowId[0]);
 
         Cart::update($rowId[0], $item->qty = $request->quantity);
-    	
-    	return redirect('cart');    	
+
+    	return redirect('cart');
     }
 
-    public function destroy($id) {
-
+    /**
+     * Remove an item from the cart
+     *
+     * @param int $id
+     * @return view
+     */
+    public function destroy(int $id)
+    {
     	$product = Product::find($id);
 
-		$rowId = Cart::search(array('id' => $product->id));
+		$rowId = Cart::search(['id' => $product->id]);
 
 		Cart::remove($rowId[0]);
 
 		return redirect('cart');
-    }	
+    }
 
-    public function charge(Request $request) {
-        
-        Log::info($request);
-
+    /**
+     * Charge the customer
+     *
+     * @param Request $request
+     * @return view
+     */
+    public function charge(Request $request)
+    {
         $cart = Cart::content();
         $total = Cart::total();
-        Log::info($cart);
 
-
-
-        // Set your secret key: remember to change this to your live secret key in production
+        // Set your secret key: remember to change this to your live secret key
+        // in production
         // See your keys here https://dashboard.stripe.com/account/apikeys
-        \Stripe\Stripe::setApiKey(Config::get('services.stripe.secret'));
+        Stripe::setApiKey(config('services.stripe.secret'));
 
-
-        // Create the charge on Stripe's servers - this will charge the user's card
+        // Create the charge on Stripe's servers
         try {
-          $charge = \Stripe\Charge::create(array(
-            "amount" => Cart::total() * 100, // amount in cents, again
-            "currency" => "usd",
-            "source" => $request->stripeToken,
-            "description" => "Example charge"
-            ));
+            $charge = Charge::create([
+                'amount'        => $total * 100, // amount in cents
+                'currency'      => 'usd',
+                'source'        => $request->stripeToken,
+                'description'   => 'Example charge',
+            ]);
 
-        Mail::send('emails.send', [ 
-                                    'billingName' => $request->stripeBillingName,
-                                    'billingAddress' => $request->stripeBillingAddressLine1,
-                                    'billingCity' => $request->stripeBillingAddressCity,
-                                    'billingZip' => $request->stripeBillingAddressZip,
-                                    'shippingName' => $request->stripeShippingName,
-                                    'shippingAddress' => $request->stripeShippingAddressLine1,
-                                    'shippingCity' => $request->stripeShipppingAddressCity,
-                                    'shippingState' => $request->stripeShippingAddressState,
-                                    'shippingZip' => $request->stripeShippingAddressZip,
-                                    'cartItems' => $cart,
-                                    'cartTotal' => $total
+            Mail::send('emails.invoice', [
+                'billingName'       => $request->stripeBillingName,
+                'billingAddress'    => $request->stripeBillingAddressLine1,
+                'billingCity'       => $request->stripeBillingAddressCity,
+                'billingZip'        => $request->stripeBillingAddressZip,
+                'shippingName'      => $request->stripeShippingName,
+                'shippingAddress'   => $request->stripeShippingAddressLine1,
+                'shippingCity'      => $request->stripeShipppingAddressCity,
+                'shippingState'     => $request->stripeShippingAddressState,
+                'shippingZip'       => $request->stripeShippingAddressZip,
+                'cartItems'         => $cart,
+                'cartTotal'         => $total
+            ], function ($message) {
+                $message->from(
+                    'order@esscentsnaturals.com', 'Esscents Naturals'
+                );
+                $message->to('roerjo.personal@gmail.com');
+                $message->subject('Order Completed | Esscents Naturals');
+            });
 
-                                    ], function ($message)
-        {
-            
-            $message->from('order@esscentsnaturals.com', 'Essennts Naturals');
-
-            $message->to('roerjo.personal@gmail.com');
-        
-        });
-
-
-          return redirect('success');
-
-        
-        } catch(\Stripe\Error\Card $e) {
-          // The card has been declined
-            Log::info($e);
+            return redirect('success');
+        } catch(Card $e) {
+            // The card has been declined
+            die(var_dump($e));
         }
     }
 }
