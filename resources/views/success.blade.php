@@ -5,8 +5,8 @@
 <section>
 	<h3>Thank you!</h3>
 	<article>
-		You should receive the following products within 7 business days.
-
+		You should receive your order within 7 business days.
+		<br />
 		Your card has been charged.
 	</article>
 </section>
