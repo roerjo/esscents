@@ -1,0 +1,11 @@
+version: '3.2'
+services:
+    app:
+      build:
+        context: .
+        dockerfile: app.dockerfile
+      working_dir: /var/www
+      volumes:
+        - type: bind
+          source: .
+          target: /var/www
