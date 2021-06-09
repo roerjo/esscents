@@ -95,7 +95,7 @@
                 <p>{{$product->description}}</p>
                 <h4>${{$product->price}}</h4>
                 <div class="buyInfo">
-                    <form method="POST" action="{{url('cart')}}">
+                    <form method="POST" id ="{{$product->id}}" action="cart/{{$product->id}}">
                         <input type="hidden" name="product_id" value="{{$product->id}}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <button type="submit" class="btn btn-fefault add-to-cart">
@@ -146,7 +146,7 @@
                 <p>{{$product->description}}</p>
                 <h4>${{$product->price}}</h4>
                 <div class="buyInfo">
-                    <form method="POST" action="{{url('cart')}}">
+                    <form method="POST" id ="{{$product->id}}" action="cart/{{$product->id}}">
                         <input type="hidden" name="product_id" value="{{$product->id}}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <button type="submit" class="btn btn-fefault add-to-cart">
