@@ -1,0 +1,55 @@
+version: "2"
+
+services:
+  # The Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: roerjo/php-esscents-app
+    container_name: php-esscents-app
+    working_dir: /var/www/app
+    expose:
+      - 9000
+    links:
+      - database
+    volumes:
+      - ./php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-php-fpm.conf
+
+  # The Web Server
+  nginx:
+    image: nginx:alpine
+    container_name: php-esscents-nginx
+    expose:
+      - 80
+    volumes_from:
+      - app
+    volumes:
+      - ./vhost.conf:/etc/nginx/conf.d/nginx.conf
+    links:
+      - app
+    environment:
+      - "VIRTUAL_HOST=${APP_HOST}"
+      - "LETSENCRYPT_HOST=${APP_HOST}"
+      - "LETSENCRYPT_EMAIL=${APP_EMAIL}"
+
+  # The Local Database
+  database:
+    image: mysql:5.7
+    container_name: php-esscents-database
+    volumes:
+      - php_esscents_database:/var/lib/mysql
+    environment:
+      - "MYSQL_DATABASE=${DATABASE_DATABASE}"
+      - "MYSQL_ROOT_PASSWORD=${DATABASE_PASSWORD}"
+    ports:
+      - "${EXTERNAL_DB_PORT}:3306"
+
+volumes:
+  php_esscents_database:
+  php_esscents_phpsocket:
+
+networks:
+  default:
+    external:
+      name: nginx-proxy

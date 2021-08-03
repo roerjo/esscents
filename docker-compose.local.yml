@@ -1,0 +1,47 @@
+version: "2"
+
+services:
+  # The Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: roerjo/php-esscents-app
+    container_name: php-esscents-app
+    working_dir: /var/www/app
+    links:
+      - database
+    volumes:
+      - .:/var/www/app
+      - ./php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-php-fpm.conf
+      - php_esscents_phpsocket:/var/run
+
+  # The Web Server
+  nginx:
+    image: nginx:alpine
+    container_name: php-esscents-nginx
+    ports:
+      - "${APP_PORT}:80"
+    volumes_from:
+      - app
+    volumes:
+      - php_esscents_phpsocket:/var/run
+      - ./vhost.conf:/etc/nginx/conf.d/default.conf
+    links:
+      - app
+
+  # The Local Database
+  database:
+    image: mysql:5.7
+    container_name: php-esscents-database
+    volumes:
+      - php_esscents_database:/var/lib/mysql
+    environment:
+      - "MYSQL_DATABASE=${DATABASE_DATABASE}"
+      - "MYSQL_ROOT_PASSWORD=${DATABASE_PASSWORD}"
+    ports:
+      - "${EXTERNAL_DB_PORT}:3306"
+
+volumes:
+  php_esscents_database:
+  php_esscents_phpsocket:
