@@ -11,6 +11,8 @@ services:
     working_dir: /var/www/app
     expose:
       - 9000
+    volumes:
+      - .:/var/www/app
     links:
       - database
 
