@@ -13,7 +13,6 @@ services:
       - database
     volumes:
       - .:/var/www/app
-      - ./php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-php-fpm.conf
       - php_esscents_phpsocket:/var/run
 
   # The Web Server
@@ -37,8 +36,8 @@ services:
     volumes:
       - php_esscents_database:/var/lib/mysql
     environment:
-      - "MYSQL_DATABASE=${DATABASE_DATABASE}"
-      - "MYSQL_ROOT_PASSWORD=${DATABASE_PASSWORD}"
+      - "MYSQL_DATABASE=${DB_DATABASE}"
+      - "MYSQL_ROOT_PASSWORD=${DB_PASSWORD}"
     ports:
       - "${EXTERNAL_DB_PORT}:3306"
 
