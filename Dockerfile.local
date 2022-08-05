@@ -1,4 +1,4 @@
-FROM php:7.4-fpm
+FROM php:7.1-fpm
 
 WORKDIR /var/www/app
 
@@ -15,10 +15,5 @@ RUN apt-get update \
         # Needed for MySQL database connections
         pdo_mysql \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-COPY ./ ./
-
-RUN composer install --no-scripts --no-autoloader \
-    && composer dump-autoload --optimize
 
 CMD php-fpm

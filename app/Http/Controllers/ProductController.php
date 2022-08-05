@@ -14,7 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-		$products = Product::all()->groupBy('type');
+      $products = Product::all()->groupBy('type');
 
     	return view('products', compact('products'));
     }
